@@ -4,10 +4,12 @@ import {
   type DefaultSession,
   type NextAuthOptions,
 } from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
-
+import CredentialsProvider from "next-auth/providers/credentials";
+import { compare } from "bcrypt";
 import { env } from "@/env";
 import { db } from "@/server/db";
+import { getUserByEmail } from "@/getData/user";
+import { User } from "@prisma/client";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -36,20 +38,67 @@ declare module "next-auth" {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
-  callbacks: {
-    session: ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-      },
-    }),
+  // callbacks: {
+  //   session: ({ session, user }) => ({
+  //     ...session,
+  //     user: {
+  //       ...session.user,
+  //       id: user.id,
+  //     },
+  //   }),
+  // },
+  pages:{
+    signIn: "/login"
+  },
+  session: {
+    strategy: "jwt",
   },
   adapter: PrismaAdapter(db),
   providers: [
-    DiscordProvider({
-      clientId: env.DISCORD_CLIENT_ID,
-      clientSecret: env.DISCORD_CLIENT_SECRET,
+    CredentialsProvider({
+      name: "Sign In",
+      credentials: {
+        email: {
+          label: "Email",
+          type: "email",
+          placeholder: "fahad@gmail.com",
+        },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials, req) {
+        // const user = {
+        //   id: "1",
+        //   name: "Fahad",
+        //   email: "fahadrazzaq.dev@gmail.com",
+        // };
+
+        if (!credentials?.email || !credentials.password) {
+          return null;
+        }
+        const user = await getUserByEmail(credentials.email);
+        if (!user) {
+          null;
+        }
+
+        // if (!user?.avatar) {
+        //   return null;
+        // }
+
+        const isPasswordValid = await compare(
+          credentials.password,
+          user?.password,
+        );
+        if (!isPasswordValid) {
+          return null;
+        }
+
+        return {
+          id: user?.id + "",
+          email: user?.email,
+          name: user?.name,
+          avatar: user.avatar,
+        };
+      },
     }),
     /**
      * ...add more providers here.
@@ -61,6 +110,31 @@ export const authOptions: NextAuthOptions = {
      * @see https://next-auth.js.org/providers/github
      */
   ],
+  callbacks: {
+    session: ({ session, token }) => {
+      // console.log("Session Callback", { session, token });
+      return {
+        ...session,
+        user:{
+          ...session.user,
+          id: token.id,
+          avatar: token.avatar
+        }
+      }
+    },
+    jwt: ({ token, user }) => {
+      // console.log("JWT Callback", { token, user });
+      if (user) {
+        const u = user as unknown as User;
+        return {
+          ...token,
+          id: u.id,
+          avatar: u.avatar,
+        };
+      }
+      return token;
+    },
+  },
 };
 
 /**

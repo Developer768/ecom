@@ -10,3 +10,8 @@ export type MenuItemWithSubMenuProps = {
     item: SideNavItem;
     toggleOpen: () => void;
 }
+
+export type apiReplyType = {
+    error: String,
+    message: String,
+}

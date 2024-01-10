@@ -10,6 +10,7 @@ import { SideNavItem } from '@/types';
 import { Icons } from '@/lib/Icons';
 import Image from 'next/image';
 import { webConfig } from '@/lib/webConfig';
+import { signOut } from 'next-auth/react';
 
 const SideNav = () => {
   return (
@@ -26,6 +27,15 @@ const SideNav = () => {
           {SIDENAV_ITEMS.map((item, idx) => {
             return <MenuItem key={idx} item={item} />;
           })}
+          <div
+          className={`flex flex-row space-x-4 items-center py-1 px-2 rounded-lg hover:bg-zinc-100 cursor-pointer`}
+          onClick={() => {
+            signOut()
+          }}
+        >
+          <Icons.LogOut className="w-6 h-6" />
+          <span className="font-semibold text-lg flex">Logout</span>
+        </div>
         </div>
       </div>
     </div>

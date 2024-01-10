@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { webConfig } from "@/lib/webConfig";
 import Image from "next/image";
 
-const Header = () => {
+const Header = ({session}:{session:any}) => {
   const scrolled = useScroll(5);
   const selectedLayout = useSelectedLayoutSegment();
   return (
@@ -34,8 +34,17 @@ const Header = () => {
         </div>
 
         <div className="hidden md:block">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-300 text-center">
-            <span className="text-sm font-semibold">HQ</span>
+          <div className="flex gap-3 items-center justify-center rounded-full ">
+            {
+              session ? (
+                <>
+                <Image src={session.user.avatar} alt="Avatar" width={32} height={32} className="rounded-full" />
+                <span className="font-bold">{session.user.name}</span>
+                </>
+              ) : (
+                <span className="h-8 w-8 text-center font-bold">Name</span>
+              )
+            }
           </div>
         </div>
       </div>

@@ -1,6 +1,9 @@
-import {X, PanelsTopLeft, FileText, Layers2, Users, Settings, Boxes, ChevronDown } from "lucide-react"
+import {X, PanelsTopLeft, FileText, Layers2, Users, Settings, Boxes, ChevronDown, AlertTriangle,Check,LogOut } from "lucide-react"
 
 export const Icons =  {
+    ChevronDown,
+    Check,
+    LogOut,
     close: X,
     dashboard: PanelsTopLeft,
     posts: FileText,
@@ -8,5 +11,5 @@ export const Icons =  {
     orders:Boxes,
     users: Users,
     settings: Settings,
-    ChevronDown,
+    alertTriangle: AlertTriangle,
 }
