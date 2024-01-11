@@ -18,8 +18,11 @@ import { Icons } from "@/lib/Icons";
 import Image from "next/image";
 import { UserType } from "@/types/users";
 import UploadUserAvatar from "./UploadUserAvatar";
+import { useRouter } from "next/navigation";
+
 
 const EditUser = ({data}:{data:UserType}) => {
+  const router = useRouter()
     const [isPending, startTransition] = useTransition();
     const [formError,setFormError] = useState<apiReplyType>({
       error: "",
@@ -44,7 +47,9 @@ const EditUser = ({data}:{data:UserType}) => {
               name: values.name,
               email: values.email,
               password: values.password
-            });
+            },{onSuccess: () => {
+              router.refresh();
+            },});
             console.log(apiResult)
             setFormError(apiResult)
           } catch (err) {

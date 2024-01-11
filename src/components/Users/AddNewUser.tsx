@@ -15,8 +15,11 @@ import { Button } from "../ui/button";
 import { api } from "@/trpc/react";
 import { apiReplyType } from "@/types/index";
 import { Icons } from "@/lib/Icons";
+import { useRouter } from "next/navigation";
+
 
 const AddNewUser = () => {
+  const router = useRouter()
     const [isPending, startTransition] = useTransition();
     const [formError,setFormError] = useState<apiReplyType>({
       error: "",
@@ -36,7 +39,9 @@ const AddNewUser = () => {
     const onSubmit = async (values: z.infer<typeof SignupSchema>) => {
         startTransition(async () => {
           try {
-            const apiResult = await signup.mutateAsync(values);
+            const apiResult = await signup.mutateAsync(values,{onSuccess: () => {
+              router.refresh();
+            },});
             console.log(apiResult)
             setFormError(apiResult)
           } catch (err) {

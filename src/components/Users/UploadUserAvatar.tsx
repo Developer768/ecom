@@ -8,6 +8,8 @@ import Image from "next/image";
 import { api } from "@/trpc/react";
 import { apiReplyType } from "@/types";
 import { Icons } from "@/lib/Icons";
+import { useRouter } from "next/navigation";
+
 
 type Props = {
   id: string;
@@ -15,6 +17,7 @@ type Props = {
 }
 
 const UploadUserAvatar = (props:Props) => {
+  const router = useRouter()
   const { register, handleSubmit } = useForm();
   const [avatarImage,setImageAvatar] = useState<string>("")
   const [isUploaded,setIsUploaded] = useState<boolean>(false)
@@ -56,7 +59,9 @@ const UploadUserAvatar = (props:Props) => {
     const apiResult = await user.mutateAsync({
       id:props.id,
       avatar: imageUrl
-    });
+    },{onSuccess: () => {
+      router.refresh();
+    },});
     setImageAvatar(imageUrl)
     setFormError(apiResult)
     setIsUploaded(false)

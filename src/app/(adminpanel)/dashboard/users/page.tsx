@@ -4,6 +4,8 @@ import { db } from '@/server/db'
 import { UsersType } from '@/types/users'
 import React from 'react'
 
+
+
 const UsersPage = async() => {
   const users:UsersType  = await db.user.findMany({
     select:{

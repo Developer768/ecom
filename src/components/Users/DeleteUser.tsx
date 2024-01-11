@@ -4,13 +4,16 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Icons } from '@/lib/Icons';
 import { Button } from '../ui/button';
 import { api } from '@/trpc/react';
+import { useRouter } from "next/navigation";
 
 const DeleteUserbyID = ({id}:{id:string}) => {
+    const router = useRouter()
     const [open, setOpen] =useState<boolean>(false)
     const user = api.user.deleteUser.useMutation()
     const onDelete = async (data:string) => {
         const apiResult = await user.mutateAsync(data)
         if(apiResult){
+            router.refresh()
             setOpen(false)
         }
     }
