@@ -25,28 +25,21 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { ArrowUpDown, ChevronDown, Delete, Edit, MoreHorizontal } from "lucide-react";
+import {
+  ArrowUpDown,
+  ChevronDown,
+  Delete,
+  Edit,
+  MoreHorizontal,
+} from "lucide-react";
 import Image from "next/image";
 import { Checkbox } from "../ui/checkbox";
 import { Input } from "../ui/input";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../ui/dialog";
-import { Icons } from "@/lib/Icons";
 import DeleteUserbyID from "./DeleteUser";
 
 type Props = {
@@ -85,29 +78,29 @@ export const columns: ColumnDef<UsersType>[] = [
   // },
   {
     accessorKey: "avatar",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          className="p-0 hover:cursor-auto hover:bg-transparent"
-          // onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Avatar
-          {/* <ArrowUpDown className="ml-2 h-4 w-4" /> */}
-        </Button>
-      );
-    },
-    cell: ({ row }) => (
-      <div className="lowercase">
-        <Image
-          src={row.getValue("avatar")}
-          alt={row.getValue("name")}
-          width={32}
-          height={32}
-          className="rounded-full"
-        />
-      </div>
-    ),
+  header: ({ column }) => {
+    return (
+      <Button
+        variant="ghost"
+        className="p-0 hover:cursor-auto hover:bg-transparent"
+        // onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Avatar
+        {/* <ArrowUpDown className="ml-2 h-4 w-4" /> */}
+      </Button>
+    );
+  },
+  cell: ({ row }) => (
+    <div className="lowercase">
+      <Image
+        src={row.getValue("avatar")}
+        alt={row.getValue("name")}
+        width={32}
+        height={32}
+        className="rounded-full"
+      />
+    </div>
+  ),
   },
   {
     accessorKey: "name",
@@ -123,7 +116,11 @@ export const columns: ColumnDef<UsersType>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("name")}</div>,
+    cell: ({ row }) => (
+      <div className="flex items-center lowercase">
+        {row.getValue("name")}
+      </div>
+    ),
   },
   {
     accessorKey: "email",
@@ -145,6 +142,18 @@ export const columns: ColumnDef<UsersType>[] = [
   {
     id: "actions",
     enableHiding: false,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="p-0 hover:cursor-auto hover:bg-transparent"
+          // onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Actions
+          {/* <ArrowUpDown className="ml-2 h-4 w-4" /> */}
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       const user = row.original;
       const router = useRouter();
@@ -236,9 +245,9 @@ const UsersDataTable = (props: Props) => {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="rounded-md border">
-        <Table>
-          <TableHeader>
+      <div className=" rounded-md border">
+        <Table className="">
+          <TableHeader  >
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
@@ -256,7 +265,7 @@ const UsersDataTable = (props: Props) => {
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody>
+          <TableBody >
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow

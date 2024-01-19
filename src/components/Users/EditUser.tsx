@@ -4,7 +4,6 @@ import {
   Card,
   CardContent,
 } from "../ui/card";
-import Link from "next/link";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 import { SignupSchema } from "@/schemas/signupSchema";
@@ -58,7 +57,7 @@ const EditUser = ({data}:{data:UserType}) => {
         });
       };
   return (
-    <Card className="min-w-[345px] shadow-md mt-4">
+    <Card className=" shadow-md mt-4">
       <CardContent className="p-6 ">
         <div className="image mb-6 ">
         <UploadUserAvatar id={data.id} avatar={data.avatar} />
@@ -142,17 +141,6 @@ const EditUser = ({data}:{data:UserType}) => {
       </form>
     </Form>
       </CardContent>
-      {/* <CardFooter className="flex items-center justify-center">
-        <p className="">
-          Already have an account?
-          <Link
-            href={"/login"}
-            className="text-green ml-1 font-bold hover:underline"
-          >
-            Login
-          </Link>
-        </p>
-      </CardFooter> */}
     </Card>
   )
 }

@@ -50,7 +50,7 @@ const AddNewUser = () => {
         });
       };
   return (
-    <Card className="min-w-[345px] shadow-md mt-4">
+    <Card className=" shadow-md m-4">
       <CardContent className="p-6">
       <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

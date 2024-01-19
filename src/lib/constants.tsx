@@ -13,6 +13,11 @@ export const SIDENAV_ITEMS: SideNavItem[] = [
         icon: <Icons.posts className="w-6 h-6" />
     },
     {
+        title: "Products",
+        path: "/dashboard/products",
+        icon: <Icons.Package className="w-6 h-6" />
+    },
+    {
         title: "Categories",
         path: "/dashboard/categories",
         icon: <Icons.categories className="w-6 h-6" />,
@@ -31,10 +36,5 @@ export const SIDENAV_ITEMS: SideNavItem[] = [
         title: "Users",
         path: "/dashboard/users",
         icon: <Icons.users className="w-6 h-6" />
-    },
-    {
-        title: "Settings",
-        path: "/dashboard/settings",
-        icon: <Icons.settings className="w-6 h-6" />
     },
 ]

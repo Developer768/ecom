@@ -75,3 +75,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+.ql-container.ql-snow {
+  border: 0px !important;
+}
+
+.ql-toolbar.ql-snow {
+  border: 0px !important;
+}

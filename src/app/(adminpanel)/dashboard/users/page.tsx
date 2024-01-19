@@ -17,7 +17,7 @@ const UsersPage = async() => {
   })
   // console.log(users)
   return (
-    <div className=''>
+    <div className='w-full'>
         <div className="header flex items-center justify-between rounded-md p-4 mb-4">
             <h3 className="font-bold text-2xl">Users</h3>
             <LinkButton href='/dashboard/users/addnew' >

@@ -23,7 +23,7 @@ const DeleteUserbyID = ({id}:{id:string}) => {
               <DialogTrigger asChild className="cursor-pointer">
                 <Icons.close className="h-5 w-5 text-destructive" />
               </DialogTrigger>
-              <DialogContent className="max-w-[350px]">
+              <DialogContent className="max-w-[330px] rounded">
                 <DialogHeader>
                   <DialogTitle>Delete User</DialogTitle>
                   <DialogDescription>

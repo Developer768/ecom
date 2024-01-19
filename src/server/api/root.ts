@@ -2,6 +2,10 @@ import { postRouter } from "@/server/api/routers/post";
 import { createTRPCRouter } from "@/server/api/trpc";
 import { authRouter } from "./routers/auth";
 import { userRouter } from "./routers/user";
+import { categoryRouter } from "./routers/category";
+import { blogCategoryRouter } from "./routers/blogCategory";
+import { tagRouter } from "./routers/blogTags";
+import { blogPostRouter } from "./routers/blogPost";
 
 /**
  * This is the primary router for your server.
@@ -12,6 +16,10 @@ export const appRouter = createTRPCRouter({
   post: postRouter,
   auth: authRouter,
   user: userRouter,
+  category: categoryRouter,
+  blogCategory: blogCategoryRouter,
+  tag: tagRouter,
+  post:blogPostRouter,
 });
 
 // export type definition of API

@@ -9,7 +9,7 @@ const DashboardLayout = async({ children }: { children: React.ReactNode }) => {
   const session = await getServerAuthSession();
   return (
     <div>
-      <div className="flex">
+      <div className="flex ">
         <SideNav />
         <main className="flex-1">
           <MarginWidthWrapper>
