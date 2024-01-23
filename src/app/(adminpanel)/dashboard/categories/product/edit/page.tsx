@@ -9,7 +9,7 @@ const EditProductCategoryPage = async ({
 }) => {
   if (searchParams.categoryId.length != 24) {
     return (
-      <div className="">
+      <div className="p-4">
         <div className="borde rounded-md  p-4">
           <h3 className="text-2xl font-bold">Edit Product Category</h3>
         </div>
@@ -34,7 +34,7 @@ const EditProductCategoryPage = async ({
     },
   });
   return (
-    <div className="">
+    <div className="p-4">
       <div className="borde rounded-md  p-4">
         <h3 className="text-2xl font-bold">Edit Product Category</h3>
       </div>

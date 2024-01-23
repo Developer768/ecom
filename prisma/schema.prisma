@@ -29,6 +29,7 @@ model ProductCategory {
     description     String
     metaTitle       String
     metaDescription String
+    products products[]
 }
 
 model blogCategory {
@@ -65,4 +66,23 @@ model blogPosts {
     tags String[]
     // tagId           String[]     @db.ObjectId
     // tags            blogTags[]   @relation(fields: [tagId], references: [id])
+}
+
+
+model products {
+    id              String       @id @default(auto()) @map("_id") @db.ObjectId
+    name String
+    slug String
+    desc String
+    details String
+    discount        String
+    metaTitle       String
+    metaDescription String
+    variants Json[]
+    combination Json[]
+    createdAt       DateTime     @default(now())
+    updatedAt       DateTime     @updatedAt
+    categoryId      String       @db.ObjectId
+    category        ProductCategory @relation(fields: [categoryId], references: [id])
+    tags String
 }

@@ -30,7 +30,7 @@ const EditUserPage = async ({ searchParams }:{searchParams:any}) => {
     },
   });
   return (
-    <div className="">
+    <div className="p-4">
     <div className="borde rounded-md  p-4">
       <h3 className="text-2xl font-bold">Edit User</h3>
     </div>

@@ -6,6 +6,7 @@ import { categoryRouter } from "./routers/category";
 import { blogCategoryRouter } from "./routers/blogCategory";
 import { tagRouter } from "./routers/blogTags";
 import { blogPostRouter } from "./routers/blogPost";
+import { productsRouter } from "./routers/products";
 
 /**
  * This is the primary router for your server.
@@ -13,13 +14,14 @@ import { blogPostRouter } from "./routers/blogPost";
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
-  post: postRouter,
+  // post: postRouter,
   auth: authRouter,
   user: userRouter,
   category: categoryRouter,
   blogCategory: blogCategoryRouter,
   tag: tagRouter,
   post:blogPostRouter,
+  product:productsRouter,
 });
 
 // export type definition of API

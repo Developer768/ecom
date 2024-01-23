@@ -199,10 +199,10 @@ const PostDataTable = (props:Props) => {
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter Category Name..."
-          value={(table.getColumn("category_name")?.getFilterValue() as string) ?? ""}
+          placeholder="Filter Post Title..."
+          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("category_name")?.setFilterValue(event.target.value)
+            table.getColumn("title")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />

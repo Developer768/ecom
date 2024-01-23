@@ -8,8 +8,8 @@ const AddNewPosts = async() => {
   const categories:ProductCategoryType[] = await db.blogCategory.findMany()
 
   return (
-    <div className="">
-      <div className="rounded-md borde  p-4">
+    <div className="w-full">
+      <div className="rounded-md   p-4">
         <h3 className="text-2xl font-bold">Create New Post</h3>
       </div>
       <AddNewPost  categories={categories}/>

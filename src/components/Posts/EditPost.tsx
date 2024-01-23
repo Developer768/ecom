@@ -165,6 +165,9 @@ const EditPost = (props: Props) => {
                   </FormItem>
                 )}
               /> */}
+              <div className="mt-4">
+                <FormLabel className="">Content</FormLabel>
+              </div>
               <ReactQuill
                 theme="snow"
                 value={contentValue}
@@ -182,7 +185,7 @@ const EditPost = (props: Props) => {
                     ],
                   },
                 }}
-                className=" rounded-md border"
+                className=" rounded-md border !mt-2"
               />
 
               <FormField
