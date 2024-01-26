@@ -29,7 +29,7 @@ export const userRouter = createTRPCRouter({
             avatar,
           },
         });
-        console.log(res)
+        // console.log(res)
         if (!res) {
           return {
             error: "error",
@@ -55,7 +55,7 @@ export const userRouter = createTRPCRouter({
           const hasedPassword = await bcrypt.hash(password, 12);
     
           const userAlreadyExists = await getUserByEmail(email);
-          console.log(userAlreadyExists);
+          // console.log(userAlreadyExists);
           if (!userAlreadyExists) {
             return {
               error: "error",
@@ -88,7 +88,7 @@ export const userRouter = createTRPCRouter({
         try {
     
           const userAlreadyExists = await getUserById(input);
-          console.log(userAlreadyExists);
+          // console.log(userAlreadyExists);
           if (!userAlreadyExists) {
             return {
               error: "error",

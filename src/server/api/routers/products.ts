@@ -1,5 +1,5 @@
-import { blogPostApiSchema } from "@/schemas/blogPostSchema";
-import { productSchema } from "@/schemas/productSchema";
+import { splitTags } from "@/lib/utils";
+import { productApiSchema, productSchema } from "@/schemas/productSchema";
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -13,8 +13,9 @@ export const productsRouter = createTRPCRouter({
     .input(productSchema)
     .mutation(async ({ input }) => {
       try {
-        const { slug, metaTitle, metaDescription,category,discount,tags,combination,desc,name,variants,details } = input;
-        console.log(input);
+        // console.log(input);
+        const { slug, metaTitle, metaDescription,category,discount,tags,combination,desc,name,variants,details,images } = input;
+        const tagsArray = splitTags(tags)
 
         const slugAlreadyExists = await db.products.findFirst({
           where: {
@@ -33,7 +34,7 @@ export const productsRouter = createTRPCRouter({
         if (slugAlreadyExists) {
           return {
             error: "error",
-            message: "Slug already Exists. Please use new Slug.",
+            message: "Product already Exists. Please use new Slug.",
           };
         }
 
@@ -45,16 +46,17 @@ export const productsRouter = createTRPCRouter({
             discount:discount,
             metaTitle:metaTitle,
             metaDescription:metaDescription,
-            tags: tags,
+            tags: tagsArray,
             details: details,
             categoryId: category,
             variants: variants,
             combination: combination,
+            images:images
           },
         });
         return {
           error: "success",
-          message: "Blog Post created Successfully.",
+          message: "Product created Successfully.",
         };
       } catch (err) {
         console.log(err);
@@ -68,7 +70,7 @@ export const productsRouter = createTRPCRouter({
     .input(z.string())
     .mutation(async ({ input }) => {
       try {
-        const postAlreadyExists = await db.blogPosts.findUnique({
+        const postAlreadyExists = await db.products.findUnique({
           where: {
             id: input,
           },
@@ -77,17 +79,17 @@ export const productsRouter = createTRPCRouter({
         if (!postAlreadyExists) {
           return {
             error: "error",
-            message: "Post Doesn't exists.",
+            message: "Product Doesn't exists.",
           };
         } else {
-          await db.blogPosts.delete({
+          await db.products.delete({
             where: {
               id: input,
             },
           });
           return {
             error: "success",
-            message: "Post Deleted Successfully.",
+            message: "Product Deleted Successfully.",
           };
         }
       } catch {
@@ -98,47 +100,49 @@ export const productsRouter = createTRPCRouter({
       }
     }),
   editProduct: protectedProcedure
-    .input(blogPostApiSchema)
+    .input(productApiSchema)
     .mutation(async ({ input }) => {
       try {
-        const {  slug, id, metaTitle, metaDescription,category,content,discount,summary,tags,title } = input;
+        const { id,slug, metaTitle, metaDescription,category,discount,tags,combination,desc,name,variants,details,images } = input;
         // console.log(input)
-        console.log("=================================================================")
-        console.log(input)
+        const tagsArray = splitTags(tags)
 
-        const blogPostAlreadyExists =
-          await db.blogPosts.findUnique({
+        const ProductAlreadyExists =
+          await db.products.findUnique({
             where: {
               id:id,
             },
 
           });
-        if (!blogPostAlreadyExists) {
+        if (!ProductAlreadyExists) {
           return {
             error: "error",
-            message: "Post Doesn't exists.",
+            message: "Product Doesn't exists.",
           };
         } else {
           
-          await db.blogPosts.update({
+          await db.products.update({
             where: {
               id: id,
             },
             data: {
-              title: title,
-              slug: slug,
-              content:content,
-              tags: tags,
-              summary:summary,
-              categoryId:category,
-              discount:discount,
-              metaTitle: metaTitle,
-              metaDescription: metaDescription,
+              name:name,
+            slug:slug,
+            desc: desc,
+            discount:discount,
+            metaTitle:metaTitle,
+            metaDescription:metaDescription,
+            tags: tagsArray,
+            details: details,
+            categoryId: category,
+            variants: variants,
+            combination: combination,
+            images:images
             },
           });
           return {
             error: "success",
-            message: "Post updated Successfully.",
+            message: "Product updated Successfully.",
           };
         }
       } catch {

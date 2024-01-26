@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { Card, CardContent } from "../ui/card";
 import {
   Form,
@@ -31,19 +31,19 @@ import {
 import { cn, splitTags } from "@/lib/utils";
 import { TagSelectType } from "@/types/tags";
 import { ProductCategoryType } from "@/types/categories";
-import ReactQuill, { Quill } from "react-quill";
+import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import UploadProductImages from "./UploadProductImages";
 import Image from "next/image";
 
 type Props = {
-  categories: ProductCategoryType[];
-  // tags: TagSelectType[];
+  categories: any;
+  data: any;
 };
 
-const AddNewProduct = (props: Props) => {
+const EditProduct = (props: Props) => {
+  const { data, categories } = props;
   var quillObj: any;
-  const { categories } = props;
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [formError, setFormError] = useState<apiReplyType>({
@@ -55,22 +55,17 @@ const AddNewProduct = (props: Props) => {
   const form = useForm<z.infer<typeof productSchema>>({
     resolver: zodResolver(productSchema),
     defaultValues: {
-      name: "",
-      slug: "",
-      images: [],
-      metaTitle: "",
-      metaDescription: "",
-      discount: "0",
-      tags: "",
-      desc: "",
-      details:"",
-      variants: [
-        {
-          name: "",
-          variations: "",
-        },
-      ],
-      combination: [],
+      name: data.name,
+      slug: data.slug,
+      images: data.images,
+      metaTitle: data.metaTitle,
+      metaDescription: data.metaDescription,
+      discount: data.discount,
+      tags: data.tags.toString(),
+      desc: data.desc,
+      variants: data.variants,
+      combination: data.combination,
+      category: data.categoryId,
     },
   });
 
@@ -85,56 +80,70 @@ const AddNewProduct = (props: Props) => {
   const { setValue } = form;
 
   const [contentValue, setContentValue] = useState("");
-  const product = api.product.addNewProduct.useMutation();
+  const product = api.product.editProduct.useMutation();
+
+  useEffect(() => {
+    setPostImage(data.images);
+    setContentValue(data.details);
+    // console.log(data.combination)
+    // let combdata="";
+    // for (let index = 0; index < data.combination.length; index++) {
+    //   combdata += data.combination[index].name+","
+      
+    // }
+    // console.log(combdata)
+    setCombinations(data.combination);
+    // setCombinations(data.combination);
+  }, []);
 
   const onSubmit = async (values: z.infer<typeof productSchema>) => {
-    if(postImage.length < 1){
-      setFormError( {
+    if (postImage.length < 1) {
+      setFormError({
         error: "error",
         message: "Please upload at least 1 Image.",
-      })
-    }else if (!combinations || combinations.length < 1){
+      });
+    } else if (!combinations || combinations.length < 1) {
       setFormError({
         error: "error",
         message: "Please Add Product Variants and Combinations.",
-      })
-    }
-     else {
-    // console.log("bbbbbbbbbbbbbbbbbbbbb", values);
-    const tagsArray = splitTags(values.tags);
-    startTransition(async () => {
-      try {
-        // console.log(values, combinations);
-        const apiResult = await product.mutateAsync(
-          {
-            name: values.name,
-            slug: values.slug,
-            details: contentValue,
-            category: values.category,
-            tags: values.tags,
-            discount: values.discount,
-            metaTitle: values.metaTitle,
-            metaDescription: values.metaDescription,
-            desc: values.desc,
-            variants: values.variants,
-            combination: values.combination,
-            images: postImage,
-          },
-          {
-            onSuccess: () => {
-              router.refresh();
+      });
+    } else {
+      // console.log("bbbbbbbbbbbbbbbbbbbbb", values);
+      const tagsArray = splitTags(values.tags);
+      startTransition(async () => {
+        try {
+          // console.log(values, combinations);
+          const apiResult = await product.mutateAsync(
+            {
+              id:data.id,
+              name: values.name,
+              slug: values.slug,
+              details: contentValue,
+              category: values.category,
+              tags: values.tags,
+              discount: values.discount,
+              metaTitle: values.metaTitle,
+              metaDescription: values.metaDescription,
+              desc: values.desc,
+              variants: values.variants,
+              combination: values.combination,
+              images: postImage,
             },
-          },
-        );
-        // console.log(apiResult);
-        setFormError(apiResult);
-      } catch (err) {
-        console.log(err);
-      }
-    });
-  }
+            {
+              onSuccess: () => {
+                router.refresh();
+              },
+            },
+          );
+          // console.log(apiResult);
+          setFormError(apiResult);
+        } catch (err) {
+          console.log(err);
+        }
+      });
+    }
   };
-
+  const [variantsdata,setVariantsData] = useState(false)
   const addNewVariant = () => {
     form.setValue("variants", [
       ...form.getValues("variants"),
@@ -143,7 +152,9 @@ const AddNewProduct = (props: Props) => {
         variations: "",
       },
     ]);
-  };
+    setVariantsData(!variantsdata)
+    };
+
 
   const removeVariant = (variant) => {
     // console.log(form.getValues("variants").filter((i) => i !== variant))
@@ -151,6 +162,7 @@ const AddNewProduct = (props: Props) => {
       "variants",
       form.getValues("variants").filter((i) => i !== variant),
     );
+    setVariantsData(!variantsdata)
   };
 
   const generateCombination = () => {
@@ -187,21 +199,40 @@ const AddNewProduct = (props: Props) => {
     const variations = generateVariationCombinations(
       form.getValues("variants"),
     );
-    setCombinations(variations);
+    // setCombinations(variations);
+
+    form.setValue("combination","")
 
     for (let index = 0; index < variations.length; index++) {
       form.setValue(`combination.${index}`, {
         name: variations[index],
         price: "0",
       });
-      // form.setValue(`combination.${index}.name`,variations[index])
-    }
-    console.log(variations);
+      // console.log("first",{
+        //   name:variations[index],
+        //   price:"0"
+        // })
+        // form.setValue(`combination.${index}.name`,variations[index])
+      }
+      setCombinations(form.getValues("combination"))
+    // console.log("test"+form.getValues("combination"))
+    // console.log(variations);
   };
+  // let d = [];
+  // for (let index = 0; index < data.combination.length; index++) {
+  //   d.push({
+  //     name:data.combination[index].name,
+  //     price: data.combination[index].price.toString()
+  //   })
+    
+  // }
+
+  // console.log("default "+d)
 
   // console.log(postImage);
   // console.log(form.formState.errors);
-
+  // console.log(categories)
+  // console.log(data.categoryId)
   return (
     <Card className=" m-4 shadow-md">
       <CardContent className="p-6">
@@ -272,40 +303,29 @@ const AddNewProduct = (props: Props) => {
                   </FormItem>
                 )}
               />
-              {/* <FormField
-                name="details"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Product Details</FormLabel>
-                    <FormControl>
-                     
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              /> */}
-              <FormLabel className="mt-4">Product Details</FormLabel>
-              <ReactQuill
-                      id="#quilldetails"
-                        theme="snow"
-                        value={contentValue}
-                        onChange={setContentValue}
-                        modules={{
-                          toolbar: {
-                            container: [
-                              [{ header: [1, 2, 3, 4, 5, 6, false] }],
-                              ["bold", "italic", "underline"],
-                              [{ list: "ordered" }, { list: "bullet" }],
-                              [{ align: [] }],
-                              ["link", "image"],
-                              ["clean"],
-                              [{ color: [] }],
-                            ],
-                          },
-                        }}
-                        className=" !mt-2 rounded-md border"
-                      />
+              <div className="mt-4">
+                <FormLabel>Product Details</FormLabel>
+                <ReactQuill
+                  id="#quilldetails"
+                  theme="snow"
+                  value={contentValue}
+                  onChange={setContentValue}
+                  modules={{
+                    toolbar: {
+                      container: [
+                        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                        ["bold", "italic", "underline"],
+                        [{ list: "ordered" }, { list: "bullet" }],
+                        [{ align: [] }],
+                        ["link", "image"],
+                        ["clean"],
+                        [{ color: [] }],
+                      ],
+                    },
+                  }}
+                  className=" !mt-2 rounded-md border"
+                />
+              </div>
               <FormField
                 name="category"
                 control={form.control}
@@ -438,25 +458,27 @@ const AddNewProduct = (props: Props) => {
                           </FormItem>
                         )}
                       />
-                      <Button
-                        variant={"destructive"}
-                        className="w-fit"
+                      <div
+                        className={
+                          "w-fit rounded-md bg-destructive p-2 px-4 text-white hover:cursor-pointer"
+                        }
                         onClick={() => removeVariant(variant)}
                       >
                         X
-                      </Button>
+                      </div>
                     </div>
                   ))}
 
-                  <div className="flex gap-4 items-center mt-4">
-                    <Button
-                      className=""
-                      onClick={() => addNewVariant()}
-                    >
+                  <div className="mt-4 flex items-center gap-4">
+                    <div className={
+                        "w-fit rounded-md bg-primary p-2 text-white hover:cursor-pointer"
+                      } onClick={() => addNewVariant()}>
                       Add New Variant
-                    </Button>
+                    </div>
                     <div
-                      className={"w-fit rounded-md bg-primary p-2 text-white hover:cursor-pointer"}
+                      className={
+                        "w-fit rounded-md bg-primary p-2 text-white hover:cursor-pointer"
+                      }
                       onClick={() => generateCombination()}
                     >
                       Generate Variant Combinations
@@ -481,7 +503,7 @@ const AddNewProduct = (props: Props) => {
                           <FormControl>
                             <Input
                               {...field}
-                              value={combinations[index]}
+                              value={combinations[index].name}
                               className="w-[250px]"
                             />
                           </FormControl>
@@ -525,7 +547,7 @@ const AddNewProduct = (props: Props) => {
             )}
 
             <Button type="submit" disabled={isPending} className="">
-              Create Product
+              Update Product
             </Button>
           </form>
         </Form>
@@ -534,4 +556,4 @@ const AddNewProduct = (props: Props) => {
   );
 };
 
-export default AddNewProduct;
+export default EditProduct;

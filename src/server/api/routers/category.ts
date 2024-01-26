@@ -13,7 +13,7 @@ export const categoryRouter = createTRPCRouter({
     .mutation(async ({ input }) => {
       try {
         const { categoryName, desc, slug, metaTitle, metaDescription } = input;
-        console.log(input);
+        // console.log(input);
 
         const slugAlreadyExists = await db.productCategory.findFirst({
           where: {
@@ -28,7 +28,7 @@ export const categoryRouter = createTRPCRouter({
           },
         });
 
-        console.log(slugAlreadyExists);
+        // console.log(slugAlreadyExists);
 
         if (slugAlreadyExists) {
           console.log("error");
@@ -68,7 +68,7 @@ export const categoryRouter = createTRPCRouter({
             id: input,
           },
         });
-        console.log(categoryAlreadyExists);
+        // console.log(categoryAlreadyExists);
         if (!categoryAlreadyExists) {
           return {
             error: "error",

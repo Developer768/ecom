@@ -43,7 +43,7 @@ const AddNewProductCategory = () => {
             const apiResult = await category.mutateAsync(values,{onSuccess: () => {
               router.refresh();
             },});
-            console.log(apiResult)
+            // console.log(apiResult)
             setFormError(apiResult)
           } catch (err) {
             console.log(err);

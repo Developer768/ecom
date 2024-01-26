@@ -4,7 +4,7 @@ import { ProductCategoryType } from "@/types/categories";
 import React from "react";
 
 const AddNewProductPage = async() => {
-  const categories:ProductCategoryType[] = await db.blogCategory.findMany()
+  const categories:ProductCategoryType[] = await db.productCategory.findMany()
   return (
     <div className="">
       <div className="borde rounded-md  p-4">

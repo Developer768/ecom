@@ -12,8 +12,8 @@ export const blogPostRouter = createTRPCRouter({
     .input(blogPostApiSchema)
     .mutation(async ({ input }) => {
       try {
-        const { title,summary,content, slug, metaTitle, metaDescription,category,discount,tags } = input;
-        console.log(input);
+        const { title,summary,content, slug, metaTitle, metaDescription,category,tags,image } = input;
+        // console.log(input);
 
         const slugAlreadyExists = await db.blogPosts.findFirst({
           where: {
@@ -40,6 +40,7 @@ export const blogPostRouter = createTRPCRouter({
 
         await db.blogPosts.create({
           data: {
+            image: image,
             title: title,
             slug: slug,
             summary: summary,
@@ -47,7 +48,6 @@ export const blogPostRouter = createTRPCRouter({
             metaTitle,
             metaDescription,
             categoryId:category,
-            discount:discount,
             tags:tags,
           },
         });
@@ -100,10 +100,10 @@ export const blogPostRouter = createTRPCRouter({
     .input(blogPostApiSchema)
     .mutation(async ({ input }) => {
       try {
-        const {  slug, id, metaTitle, metaDescription,category,content,discount,summary,tags,title } = input;
+        const {  slug, id, metaTitle, metaDescription,category,content,image,summary,tags,title } = input;
         // console.log(input)
-        console.log("=================================================================")
-        console.log(input)
+        // console.log("=================================================================")
+        // console.log(input)
 
         const blogPostAlreadyExists =
           await db.blogPosts.findUnique({
@@ -130,7 +130,7 @@ export const blogPostRouter = createTRPCRouter({
               tags: tags,
               summary:summary,
               categoryId:category,
-              discount:discount,
+              image:image,
               metaTitle: metaTitle,
               metaDescription: metaDescription,
             },

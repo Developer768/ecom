@@ -44,7 +44,7 @@ const EditBlogCategory = ({ data }: { data: BlogCategoryType }) => {
   const onSubmit = async (values: z.infer<typeof blogCategorySchema>) => {
     startTransition(async () => {
       try {
-        console.log(values)
+        // console.log(values)
         const apiResult = await editCategory.mutateAsync(
           {
             id: data.id,
@@ -60,7 +60,7 @@ const EditBlogCategory = ({ data }: { data: BlogCategoryType }) => {
             },
           },
         );
-        console.log(apiResult);
+        // console.log(apiResult);
         setFormError(apiResult);
       } catch (err) {
         console.log(err);

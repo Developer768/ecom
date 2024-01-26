@@ -35,6 +35,8 @@ import { Editor } from "novel";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { PrismaPostType } from "@/types/posts";
+import Image from "next/image";
+import UploadPostImage from "./UploadPostImage";
 
 type Props = {
   categories: ProductCategoryType[];
@@ -52,6 +54,16 @@ const EditPost = (props: Props) => {
     message: "",
   });
 
+  const [postImage, setPostImage] = useState<string>("");
+
+  useEffect(()=>{
+    setPostImage(data.image)
+  },[])
+
+  const updateImage = (value: string) => {
+    setPostImage(value);
+  };
+
   const form = useForm<z.infer<typeof blogPostSchema>>({
     resolver: zodResolver(blogPostSchema),
     defaultValues: {
@@ -60,7 +72,6 @@ const EditPost = (props: Props) => {
       summary: data.summary,
       metaTitle: data.metaTitle,
       metaDescription: data.metaDescription,
-      discount: data.discount,
       tags: data.tags.toString(),
       category: data.categoryId,
     },
@@ -90,7 +101,7 @@ const EditPost = (props: Props) => {
             content: contentValue,
             category: values.category,
             tags: tagsArray,
-            discount: values.discount,
+            image: postImage,
             metaTitle: values.metaTitle,
             metaDescription: values.metaDescription,
           },
@@ -100,7 +111,7 @@ const EditPost = (props: Props) => {
             },
           },
         );
-        console.log(apiResult);
+        // console.log(apiResult);
         setFormError(apiResult);
       } catch (err) {
         console.log(err);
@@ -110,6 +121,13 @@ const EditPost = (props: Props) => {
   return (
     <Card className="m-4 shadow-md">
       <CardContent className="p-6">
+      {postImage && (
+          <div className="postimg">
+            {/* <img src={postImage} alt="h-[100px]" /> */}
+            <Image src={postImage} alt="img" width={200} height={200} />
+          </div>
+        )}
+        <UploadPostImage updateImage={updateImage} />
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="space-y-4">
@@ -234,19 +252,7 @@ const EditPost = (props: Props) => {
                   </FormItem>
                 )}
               />
-              <FormField
-                name="discount"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Discount</FormLabel>
-                    <FormControl>
-                      <Input {...field} type="number" disabled={isPending} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+             
               <FormField
                 name="metaTitle"
                 control={form.control}
@@ -287,7 +293,7 @@ const EditPost = (props: Props) => {
               </div>
             )}
             <Button type="submit" disabled={isPending} className="bg-primary">
-              Create Blog Category
+              Update Blog Post
             </Button>
           </form>
         </Form>

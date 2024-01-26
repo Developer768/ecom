@@ -33,6 +33,8 @@ import { TagSelectType } from "@/types/tags";
 import { splitTags } from "@/lib/utils";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import UploadPostImage from "./UploadPostImage";
+import Image from "next/image";
 
 type Props = {
   categories: ProductCategoryType[];
@@ -58,32 +60,35 @@ const AddNewPost = (props: Props) => {
       summary: "",
       metaTitle: "",
       metaDescription: "",
-      discount: "0",
       tags: "",
     },
   });
 
   const [tags, setTags] = React.useState<TagSelectType[]>([]);
+  const [postImage, setPostImage] = useState<string>("");
+
+  const updateImage = (value: string) => {
+    setPostImage(value);
+  };
 
   const { setValue } = form;
   const [contentValue, setContentValue] = useState("");
   const post = api.post.addNewPost.useMutation();
   const onSubmit = async (values: z.infer<typeof blogPostSchema>) => {
     const tagsArray = splitTags(values.tags);
-    console.log(values);
+    // console.log(values);
     startTransition(async () => {
       try {
-        console.log(values, contentValue);
+        // console.log(values, contentValue);
         const apiResult = await post.mutateAsync(
           {
             title: values.title,
             slug: values.slug,
+            image: postImage,
             summary: values.summary,
-            // content: values.content,
             content: contentValue,
             category: values.category,
             tags: tagsArray,
-            discount: values.discount,
             metaTitle: values.metaTitle,
             metaDescription: values.metaDescription,
           },
@@ -93,7 +98,7 @@ const AddNewPost = (props: Props) => {
             },
           },
         );
-        console.log(apiResult);
+        // console.log(apiResult);
         setFormError(apiResult);
       } catch (err) {
         console.log(err);
@@ -103,6 +108,13 @@ const AddNewPost = (props: Props) => {
   return (
     <Card className="m-4 shadow-md">
       <CardContent className="p-6">
+        {postImage && (
+          <div className="postimg">
+            {/* <img src={postImage} alt="h-[100px]" /> */}
+            <Image src={postImage} alt="img" width={200} height={200} />
+          </div>
+        )}
+        <UploadPostImage updateImage={updateImage} />
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="space-y-4">
@@ -145,19 +157,6 @@ const AddNewPost = (props: Props) => {
                   </FormItem>
                 )}
               />
-              {/* <FormField
-                name="content"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Content</FormLabel>
-                    <FormControl>
-                      <Textarea {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              /> */}
               <div className="mt-4">
                 <FormLabel className="">Content</FormLabel>
               </div>
@@ -223,19 +222,6 @@ const AddNewPost = (props: Props) => {
                     <FormDescription>
                       Sperate Tags by using comma ( , )
                     </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                name="discount"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Discount</FormLabel>
-                    <FormControl>
-                      <Input {...field} type="number" disabled={isPending} />
-                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}

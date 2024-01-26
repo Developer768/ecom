@@ -47,7 +47,7 @@ const EditProductCategory = ({ data }: { data: ProductCategoryType }) => {
   const onSubmit = async (values: z.infer<typeof categorySchema>) => {
     startTransition(async () => {
       try {
-        console.log(values)
+        // console.log(values)
         const apiResult = await editCategory.mutateAsync(
           {
             id: data.id,
@@ -63,7 +63,7 @@ const EditProductCategory = ({ data }: { data: ProductCategoryType }) => {
             },
           },
         );
-        console.log(apiResult);
+        // console.log(apiResult);
         setFormError(apiResult);
       } catch (err) {
         console.log(err);

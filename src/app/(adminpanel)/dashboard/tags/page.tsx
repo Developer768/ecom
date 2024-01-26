@@ -15,7 +15,7 @@ const TagsPage = async() => {
       desc: true,
     }
   })
-  console.log(tags)
+  // console.log(tags)
   return (
     <div className='w-full'>
         <div className="header flex items-center justify-between rounded-md p-4 mb-4">

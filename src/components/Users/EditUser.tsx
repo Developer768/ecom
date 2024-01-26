@@ -49,7 +49,7 @@ const EditUser = ({data}:{data:UserType}) => {
             },{onSuccess: () => {
               router.refresh();
             },});
-            console.log(apiResult)
+            // console.log(apiResult)
             setFormError(apiResult)
           } catch (err) {
             console.log(err);

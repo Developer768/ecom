@@ -14,7 +14,7 @@ export const tagRouter = createTRPCRouter({
     .mutation(async ({ input }) => {
       try {
         const {name,description } = input;
-        console.log(input);
+        // console.log(input);
 
         const tagAlreadyExists = await db.blogTags.findFirst({
           where: {
@@ -58,7 +58,7 @@ export const tagRouter = createTRPCRouter({
             id: input,
           },
         });
-        console.log(tagAlreadyExists);
+        // console.log(tagAlreadyExists);
         if (!tagAlreadyExists) {
           return {
             error: "error",

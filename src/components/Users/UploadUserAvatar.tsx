@@ -55,7 +55,7 @@ const UploadUserAvatar = (props:Props) => {
     );
     const uploadedImageData = await uploadResponse.json();
     const imageUrl = uploadedImageData.secure_url;
-    console.log(imageUrl);
+    // console.log(imageUrl);
     const apiResult = await user.mutateAsync({
       id:props.id,
       avatar: imageUrl

@@ -46,7 +46,7 @@ const EditBlogTag = ({ data }: { data: TagsType }) => {
   const onSubmit = async (values: z.infer<typeof TagsSchema>) => {
     startTransition(async () => {
       try {
-        console.log(values)
+        // console.log(values)
         const apiResult = await edittag.mutateAsync(
           {
             id: data.id,
@@ -59,7 +59,7 @@ const EditBlogTag = ({ data }: { data: TagsType }) => {
             },
           },
         );
-        console.log(apiResult);
+        // console.log(apiResult);
         setFormError(apiResult);
       } catch (err) {
         console.log(err);
