@@ -1,7 +1,14 @@
-const PagesLayout = ({children}:{children:React.ReactNode}) => {
-  return (
-    <div>{children}</div>
-  )
-}
+import ClientHeader from "@/components/ClientHeader";
+import Footer from "@/components/Footer";
+import TopBar from "@/components/TopBar";
 
-export default PagesLayout
+const PagesLayout = ({ children }: { children: React.ReactNode }) => {
+  return <main>
+    <TopBar />
+    <ClientHeader />
+    {children}
+    <Footer />
+    </main>;
+};
+
+export default PagesLayout;

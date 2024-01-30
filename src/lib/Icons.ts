@@ -12,6 +12,12 @@ import {
   LogOut,
   Package,
   Tags,
+  ShoppingBag,
+  Menu,
+  Star,
+  ChevronLeft,
+  ChevronRight,
+  LucideProps,
 } from "lucide-react";
 
 export const Icons = {
@@ -28,4 +34,9 @@ export const Icons = {
   settings: Settings,
   alertTriangle: AlertTriangle,
   tags: Tags,
+  ShoppingBag,
+  Menu,
+  Star,
+  ChevronLeft,
+  ChevronRight,
 };

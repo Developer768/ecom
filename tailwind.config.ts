@@ -20,6 +20,7 @@ const config = {
       lg: { min: "1024px" },
       xl: { min: "1400px" },
       "2xl": { min: "1536px" },
+      "3xl": { min: "1730px" },
     },
     container: {
       center: true,
@@ -30,6 +31,12 @@ const config = {
     },
     extend: {
       colors: {
+        golden: "hsl(var(--golden))",
+        lightGreen: "hsl(var(--light-green))",
+        darkGreen: "hsl(var(--dark-green))",
+        green: "hsl(var(--green))",
+        greyishGreen: "hsl(var(--greyish-green))",
+        accordionBg: "hsl(var(--accordion-bg))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
