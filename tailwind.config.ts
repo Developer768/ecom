@@ -31,6 +31,8 @@ const config = {
     },
     extend: {
       colors: {
+        textGrey: "hsl(var(--text-grey))",
+        grey: "hsl(var(--grey))",
         golden: "hsl(var(--golden))",
         lightGreen: "hsl(var(--light-green))",
         darkGreen: "hsl(var(--dark-green))",

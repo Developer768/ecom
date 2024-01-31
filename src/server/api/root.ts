@@ -7,6 +7,7 @@ import { blogCategoryRouter } from "./routers/blogCategory";
 import { tagRouter } from "./routers/blogTags";
 import { blogPostRouter } from "./routers/blogPost";
 import { productsRouter } from "./routers/products";
+import { sendMailRouter } from "./routers/sendMail";
 
 /**
  * This is the primary router for your server.
@@ -22,6 +23,7 @@ export const appRouter = createTRPCRouter({
   tag: tagRouter,
   post:blogPostRouter,
   product:productsRouter,
+  mail: sendMailRouter,
 });
 
 // export type definition of API

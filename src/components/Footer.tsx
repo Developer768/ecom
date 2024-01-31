@@ -7,7 +7,7 @@ const Footer = () => {
     <footer id="footer" className=" bg-green w-full  font-dmSans text-white">
       <div className="width">
         {/* Footer */}
-        <div className="footer 3xl:px-0 flex flex-col gap-8 px-4 py-8 md:flex-row md:flex-wrap md:justify-between">
+        <div className="footer 3xl:px-0 flex flex-col gap-8 px-4 py-8 lg:pt-10 3xl:pt-24 md:flex-row md:flex-wrap md:justify-between">
           {/* Info */}
           <div className="info min-w-[320px]">
             <div className="mb-[30px] w-fit">
@@ -96,7 +96,7 @@ const Footer = () => {
             </div>
           </div>
           {/* Join Our Community */}
-          <div className="join-our-community min-w-[320px] md:w-[450px]">
+          <div className="join-our-community min-w-[320px] md:w-[768px] 2xl:w-[600px]">
           <h3 className="mb-[30px] text-[24px] text-primary">Join Our Community</h3>
           <p className="w-fit text-[18px] text-white ">Become a valued member of our community and unlock a world of inspiration, latest updates and exclusive rewards.</p>
           <FooterForm />

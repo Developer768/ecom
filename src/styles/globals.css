@@ -10,6 +10,9 @@
     --accordion-bg: 165 15% 42%;
     --light-green: 136 23% 25%;
     --golden: 46, 64%, 54%;
+    --grey: 0 0% 95%;
+    /* #505050 */
+    --text-grey: 0, 0%, 31%;
 
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;

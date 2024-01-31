@@ -13,7 +13,7 @@ const Hero = () => {
           supplement derived from the leaves of the Mitragyna speciose tree,
           which is native to Southeast Asia.
         </p>
-        <LinkButton href="/shop" className="rounded-full">
+        <LinkButton href="/shop" className="rounded-full border border-white bg-primary px-6 py-6 text-[16px] text-white lg:text-[20px]">
           Shop Now {" ->"}
         </LinkButton>
         <img src="/assets/images/hero-img.png" alt="products" className='sm:absolute  sm:ml-auto sm:right-4 sm:w-[50%] md:w-[45%] lg:w-[55%] xl:w-[45%] sm:bottom-[70px] xl:bottom-[30px] 3xl:bottom-[20px] md:bottom-[60px]   z-50' />
