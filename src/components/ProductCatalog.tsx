@@ -12,7 +12,7 @@ const ProductCatalog = (props: Props) => {
   const { data } = props;
   const minPrice = findMinPrice(data.combination)
   const maxPrice = findMaxPrice(data.combination)
-  console.log(data);
+  // console.log(data);
   return (
     <div className="product-catalog bg-grey group mx-auto  flex w-full max-w-[430px] flex-col justify-between rounded-[21px] border-2 border-transparent p-5 text-black hover:border-primary lg:min-h-[490px] xl:min-h-[540px]">
       <div className="img mx-auto flex aspect-square max-w-[300px] items-center justify-center ">

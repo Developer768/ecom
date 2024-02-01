@@ -1,4 +1,5 @@
 "use client";
+import ContactUsForm from "@/components/ContactUsForm";
 import { Icons } from "@/lib/Icons";
 import Link from "next/link";
 import React, { Suspense } from "react";
@@ -92,6 +93,7 @@ const ContactUsPage = () => {
                 </div>
                 <div className="form bg-darkGreen rounded-tl-[50px] px-4 py-6 lg:p-[38px] 3xl:p-[60px] lg:w-[60%]">
                     <h3 className="salome-small text-white">Contact Us</h3>
+                    <ContactUsForm />
                 </div>
             </div>
          </div>

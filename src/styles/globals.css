@@ -13,6 +13,7 @@
     --grey: 0 0% 95%;
     /* #505050 */
     --text-grey: 0, 0%, 31%;
+    --golden: 46 64% 54%;
 
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
@@ -88,7 +89,7 @@
     @apply max-w-[1730px] mx-auto
   }
   .salome-large {
-    @apply font-salome leading-tight text-[36px] lg:text-[76px] xl:text-[58px] 3xl:text-[72px]
+    @apply font-salome leading-tight text-[32px] lg:text-[58px] xl:text-[76px] 3xl:text-[72px]
   }
   .salome-small {
     @apply font-salome leading-tight text-[28px] lg:text-[36px] xl:text-[46px] 3xl:text-[55px]

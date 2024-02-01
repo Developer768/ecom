@@ -18,6 +18,7 @@ import {
   ChevronLeft,
   ChevronRight,
   MapPin,
+  StarHalf,
   LucideProps,
 } from "lucide-react";
 
@@ -41,4 +42,5 @@ export const Icons = {
   ChevronLeft,
   ChevronRight,
   MapPin,
+  StarHalf,
 };
