@@ -21,6 +21,7 @@ import {
   StarHalf,
   Minus,
   Plus,
+  Truck,
   LucideProps,
 } from "lucide-react";
 
@@ -47,4 +48,5 @@ export const Icons = {
   StarHalf,
   Minus,
   Plus,
+  Truck,
 };

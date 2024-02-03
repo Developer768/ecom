@@ -28,6 +28,16 @@ export const SIDENAV_ITEMS: SideNavItem[] = [
         ],
     },
     {
+        title: "Shipping",
+        path: "/dashboard/shipping",
+        icon: <Icons.Truck className="w-6 h-6" />,
+        submenu: true,
+        subMenuItems: [
+            {title:"States", path:"/dashboard/shipping/states"},
+            {title:"Counties", path:"/dashboard/shipping/counties"},
+        ],
+    },
+    {
         title: "Orders",
         path: "/dashboard/orders",
         icon: <Icons.orders className="w-6 h-6" />

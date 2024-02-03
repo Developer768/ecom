@@ -1,45 +1,49 @@
-"use client";
-import React from "react";
+"use client"
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { StatesType } from '@/types/shipping'
+import { ArrowUpDown, ChevronDown, Edit } from 'lucide-react';
+import Link from 'next/link';
+import React from 'react'
 import {
-  ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState,
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "../ui/button";
-import { ArrowUpDown, ChevronDown, Edit } from "lucide-react";
-import { Checkbox } from "../ui/checkbox";
-import { Input } from "../ui/input";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { PostType, PrismaPostType } from "@/types/posts";
-import DeletePost from "./DeletePost";
+    ColumnDef,
+    ColumnFiltersState,
+    SortingState,
+    VisibilityState,
+    flexRender,
+    getCoreRowModel,
+    getFilteredRowModel,
+    getPaginationRowModel,
+    getSortedRowModel,
+    useReactTable,
+  } from "@tanstack/react-table";
+  import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+  } from "@/components/ui/table";
+  import {
+    DropdownMenu,
+    DropdownMenuCheckboxItem,
+    DropdownMenuContent,
+    DropdownMenuTrigger,
+  } from "@/components/ui/dropdown-menu";
+  import { useRouter } from "next/navigation";
+import { Input } from '@/components/ui/input';
+import DeleteShippingStatebyID from './DeleteShippingStatebyID';
+
+
+
+
 
 type Props = {
-    data :PrismaPostType[]
+    data :StatesType[]
 }
 
-export const columns: ColumnDef<PrismaPostType>[] = [
+export const columns: ColumnDef<StatesType[]>[] = [
     {
       id: "id",
       header: ({ table }) => (
@@ -62,8 +66,15 @@ export const columns: ColumnDef<PrismaPostType>[] = [
       enableSorting: false,
       enableHiding: false,
     },
+    // {
+    //   accessorKey: "status",
+    //   header: "Status",
+    //   cell: ({ row }) => (
+    //     <div className="capitalize">{row.getValue("status")}</div>
+    //   ),
+    // },
     {
-      accessorKey: "title",
+      accessorKey: "name",
       header: ({ column }) => {
         return (
           <Button
@@ -71,61 +82,14 @@ export const columns: ColumnDef<PrismaPostType>[] = [
             className="p-0 hover:bg-transparent"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Post Title
+            Name
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         );
       },
-      cell: ({ row }) => <div className="lowercase">{row.getValue("title")}</div>,
+      cell: ({ row }) => <div className="lowercase">{row.getValue("name")}</div>,
     },
-    {
-      accessorKey: "slug",
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            className="p-0 hover:bg-transparent"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Slug
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        );
-      },
-      cell: ({ row }) => <div className="lowercase">{row.getValue("slug")}</div>,
-    },
-    // {
-    //   accessorKey: "metaTitle",
-    //   header: ({ column }) => {
-    //     return (
-    //       <Button
-    //         variant="ghost"
-    //         className="p-0 hover:bg-transparent"
-    //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-    //       >
-    //         Meta Title
-    //         <ArrowUpDown className="ml-2 h-4 w-4" />
-    //       </Button>
-    //     );
-    //   },
-    //   cell: ({ row }) => <div className="lowercase">{row.getValue("metaTitle")}</div>,
-    // },
-    // {
-    //   accessorKey: "metaDescription",
-    //   header: ({ column }) => {
-    //     return (
-    //       <Button
-    //         variant="ghost"
-    //         className="p-0 hover:bg-transparent"
-    //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-    //       >
-    //         Meta Description
-    //         <ArrowUpDown className="ml-2 h-4 w-4" />
-    //       </Button>
-    //     );
-    //   },
-    //   cell: ({ row }) => <div className="lowercase">{row.getValue("metaDescription")}</div>,
-    // },
+    
   
     {
       id: "actions",
@@ -143,7 +107,7 @@ export const columns: ColumnDef<PrismaPostType>[] = [
         );
       },
       cell: ({ row }) => {
-        const post = row.original;
+        const state = row.original;
         const router = useRouter();
         return (
           <div className="flex items-center gap-4">
@@ -151,24 +115,24 @@ export const columns: ColumnDef<PrismaPostType>[] = [
               <Link
                 className="w-full"
                 href={{
-                  pathname: "/dashboard/posts/edit",
+                  pathname: "/dashboard/shipping/states/edit",
                   query: {
-                    postId: post.id,
+                    stateId: state?.id,
                   },
                 }}
               >
                 <Edit className="h-5 w-5 text-primary" />
               </Link>
             </div>
-            <DeletePost id={post.id} />
+            <DeleteShippingStatebyID id={state.id} />
           </div>
         );
       },
     },
   ];
 
-const PostDataTable = (props:Props) => {
-    const { data } = props;
+const StatesDataTable = (props:Props) => {
+  const { data } = props;
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
@@ -199,10 +163,10 @@ const PostDataTable = (props:Props) => {
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter Post Title..."
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+          placeholder="Filter State Name..."
+          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
+            table.getColumn("name")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
@@ -311,4 +275,4 @@ const PostDataTable = (props:Props) => {
   )
 }
 
-export default PostDataTable
+export default StatesDataTable

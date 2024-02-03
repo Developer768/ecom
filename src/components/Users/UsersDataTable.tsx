@@ -169,7 +169,7 @@ export const columns: ColumnDef<UsersType>[] = [
                 },
               }}
             >
-              <Edit className="h-5 w-5 text-green-500" />
+              <Edit className="h-5 w-5 text-primary" />
             </Link>
           </div>
           <DeleteUserbyID id={user.id} />

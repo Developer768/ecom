@@ -181,7 +181,7 @@ export const columns: ColumnDef<BlogCategoryType>[] = [
                   },
                 }}
               >
-                <Edit className="h-5 w-5 text-green-500" />
+                <Edit className="h-5 w-5 text-primary" />
               </Link>
             </div>
             <DeleteBlogCategorybyID id={category.id} />

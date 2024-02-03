@@ -25,9 +25,9 @@ const DeleteBlogCategorybyID = ({id}:{id:string}) => {
       </DialogTrigger>
       <DialogContent className="max-w-[330px] rounded">
         <DialogHeader>
-          <DialogTitle>Delete User</DialogTitle>
+          <DialogTitle>Delete Blog Category</DialogTitle>
           <DialogDescription>
-            Are you sure you want to Delete this User?
+            Are you sure you want to Delete this Blog Category?
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>

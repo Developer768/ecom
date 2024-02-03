@@ -201,7 +201,7 @@ const SingleProductComp = (props: Props) => {
     }
     setLoading(false)
   }
-  // console.log(data)
+  console.log(data)
   // console.log(combs);
   // console.log(variantState);
   return (
@@ -238,9 +238,19 @@ const SingleProductComp = (props: Props) => {
           <h3 className="mb-2 font-dmSans text-[22px] font-bold leading-tight text-black lg:text-[30px] xl:mb-3 xl:text-[38px] 3xl:text-[50px]">
             {data.name}
           </h3>
-          <h3 className="mb-1 font-dmSans text-[18px] font-medium leading-tight text-primary lg:text-[24px] xl:mb-3 xl:text-[30px] 3xl:text-[40px]">
+          <div className="flex items-center gap-4">
+          <h3 className={`mb-1 font-dmSans text-[18px] font-medium leading-tight lg:text-[24px] xl:mb-3 xl:text-[30px] 3xl:text-[40px] ${quantity > 1 ? "text-gray-400 line-through" : "text-primary"}`}>
             ${price}
           </h3>
+          {
+            ((quantity > 1) && variantState.price !="") && (
+              <div className="flex items-center gap-3">
+                <p className="">x {quantity}</p>
+                <p className="font-dmSans text-[16px] font-medium leading-tight text-primary lg:text-[24px] xl:mb-3 xl:text-[30px] 3xl:text-[40px] ">${quantity * parseInt(variantState.price)}</p>
+              </div>
+            )
+          }
+          </div>
           <div className="stars mb-2 flex items-center gap-1 xl:mb-3">
             <Icons.Star className="w-[16px] border-golden fill-golden stroke-golden lg:w-[18px] xl:w-[20px] 3xl:w-[22px]" />
             <Icons.Star className="w-[16px] border-golden fill-golden stroke-golden lg:w-[18px] xl:w-[20px] 3xl:w-[22px]" />

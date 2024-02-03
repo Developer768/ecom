@@ -87,3 +87,19 @@ model products {
     category        ProductCategory @relation(fields: [categoryId], references: [id])
     tags String[]
 }
+
+
+model States {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  name  String @unique
+  counties Counties[]
+}
+
+model Counties {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  orderPrice String
+  shippingCost String
+  state   States @relation(fields: [StateId], references: [id])
+  StateId String @db.ObjectId
+}

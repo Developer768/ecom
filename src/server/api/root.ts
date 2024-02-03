@@ -8,6 +8,8 @@ import { tagRouter } from "./routers/blogTags";
 import { blogPostRouter } from "./routers/blogPost";
 import { productsRouter } from "./routers/products";
 import { sendMailRouter } from "./routers/sendMail";
+import { shippingStatesRouter } from "./routers/shippingStatesRouter";
+import { shippingCountiesRouter } from "./routers/shippingCountiesRouter";
 
 /**
  * This is the primary router for your server.
@@ -24,6 +26,8 @@ export const appRouter = createTRPCRouter({
   post:blogPostRouter,
   product:productsRouter,
   mail: sendMailRouter,
+  states: shippingStatesRouter,
+  counties: shippingCountiesRouter,
 });
 
 // export type definition of API

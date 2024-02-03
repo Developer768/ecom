@@ -1,17 +1,17 @@
 "use client"
 import React, { useState } from 'react'
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
 import { Icons } from '@/lib/Icons';
-import { Button } from '../ui/button';
 import { api } from '@/trpc/react';
 import { useRouter } from "next/navigation";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
 
-const DeleteProductCategorybyID = ({id}:{id:string}) => {
+const DeleteShippingStatebyID = ({id}:{id:string}) => {
     const router = useRouter()
     const [open, setOpen] =useState<boolean>(false)
-    const category = api.category.deleteCategory.useMutation()
+    const state = api.states.deleteShippingState.useMutation()
     const onDelete = async (data:string) => {
-        const apiResult = await category.mutateAsync(data)
+        const apiResult = await state.mutateAsync(data)
         if(apiResult){
             router.refresh()
             setOpen(false)
@@ -25,9 +25,9 @@ const DeleteProductCategorybyID = ({id}:{id:string}) => {
               </DialogTrigger>
               <DialogContent className="max-w-[330px]">
                 <DialogHeader>
-                  <DialogTitle>Delete Category</DialogTitle>
+                  <DialogTitle>Delete State</DialogTitle>
                   <DialogDescription>
-                    Are you sure you want to Delete this Product Category?
+                    Are you sure you want to Delete this Shipping State?
                   </DialogDescription>
                 </DialogHeader>
                 <DialogFooter>
@@ -44,4 +44,4 @@ const DeleteProductCategorybyID = ({id}:{id:string}) => {
   )
 }
 
-export default DeleteProductCategorybyID
+export default DeleteShippingStatebyID

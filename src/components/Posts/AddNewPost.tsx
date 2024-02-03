@@ -266,7 +266,7 @@ const AddNewPost = (props: Props) => {
               </div>
             )}
             <Button type="submit" disabled={isPending} className="bg-primary">
-              Create Blog Category
+              Create Post
             </Button>
           </form>
         </Form>
