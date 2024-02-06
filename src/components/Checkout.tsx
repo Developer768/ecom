@@ -31,7 +31,7 @@ import {
   CommandItem,
 } from "./ui/command";
 import LinkButton from "./customUI/LinkButton";
-import StripeCheckout from "react-stripe-checkout";
+// import StripeCheckout from "react-stripe-checkout";
 
 type Props = {
   states: StatesType[];
@@ -39,25 +39,25 @@ type Props = {
 };
 
 const Checkout = (props: Props) => {
-  const [stripeToken, setStripeToken] = useState(null);
+  // const [stripeToken, setStripeToken] = useState(null);
   const checkout = api.checkout.createPaymentIntent.useMutation();
   const checkoutpayment = api.checkout.payment.useMutation();
 
-  const onToken = async (token) => {
-    console.log("Token", token);
-    setStripeToken(token);
-  };
-  useEffect(() => {
-    const makeRequest = async () => {
-      const apiResult = await checkoutpayment.mutateAsync({
-        tokenId: stripeToken.id,
-        amount: (parseFloat(TotalPrice) * 100).toString()
-      });
-      console.log("Stripe Response", apiResult)
-    };
+  // const onToken = async (token) => {
+  //   console.log("Token", token);
+  //   setStripeToken(token);
+  // };
+  // useEffect(() => {
+  //   const makeRequest = async () => {
+  //     const apiResult = await checkoutpayment.mutateAsync({
+  //       tokenId: stripeToken.id,
+  //       amount: (parseFloat(TotalPrice) * 100).toString()
+  //     });
+  //     console.log("Stripe Response", apiResult)
+  //   };
 
-    stripeToken && makeRequest();
-  }, [stripeToken]);
+  //   stripeToken && makeRequest();
+  // }, [stripeToken]);
 
   let subTotal = useSelector((state) => state.cartReducer.total);
   const products = useSelector((state) => state.cartReducer.products);

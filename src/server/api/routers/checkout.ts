@@ -8,9 +8,9 @@ import {
 import { db } from "@/server/db";
 import { checkoutApiSchema } from "@/schemas/checkoutSchema";
 // import { stripe } from "@/lib/stripe";
-import type Stripe from 'stripe'
+// import type Stripe from 'stripe'
 
-const stripe =require("stripe")(process.env.STRIPE_SECRET_KEY);
+// const stripe =require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 export const checkoutRouter = createTRPCRouter({
   createPaymentIntent: publicProcedure
@@ -59,17 +59,17 @@ export const checkoutRouter = createTRPCRouter({
             //     },
             // })
 
-            stripe.charges.create({
-                source: req.body.tokenId,
-                amount: req.body.amount,
-                currency: "usd",
-            }, (stripeErr, stripeRes) =>{
-                if(stripeErr){
-                    res.send(stripeErr)
-                }else{
-                    res.send(stripeRes)
-                }
-            });
+            // stripe.charges.create({
+            //     source: req.body.tokenId,
+            //     amount: req.body.amount,
+            //     currency: "usd",
+            // }, (stripeErr, stripeRes) =>{
+            //     if(stripeErr){
+            //         res.send(stripeErr)
+            //     }else{
+            //         res.send(stripeRes)
+            //     }
+            // });
 
         } catch (err) {
           return {
@@ -89,25 +89,25 @@ export const checkoutRouter = createTRPCRouter({
         };
       }
     }),
-    payment: publicProcedure
-    .input(z.object({
-        tokenId:z.string(),
-        amount:z.string()
-    }))
-    .mutation(async ({ input }) => {
-        stripe.charges.create({
-            source: input.tokenId,
-            amount: parseFloat(input.amount),
-            currency: "usd",
-        }, (stripeErr, stripeRes) =>{
-            if(stripeErr){
-                return {
-                    error: "error",
-                    message: "Something went wrong creating Stripe Charges.",
-                  };
-            }else{
-                return stripeRes
-            }
-        });
-    })
+    // payment: publicProcedure
+    // .input(z.object({
+    //     tokenId:z.string(),
+    //     amount:z.string()
+    // }))
+    // .mutation(async ({ input }) => {
+    //     stripe.charges.create({
+    //         source: input.tokenId,
+    //         amount: parseFloat(input.amount),
+    //         currency: "usd",
+    //     }, (stripeErr, stripeRes) =>{
+    //         if(stripeErr){
+    //             return {
+    //                 error: "error",
+    //                 message: "Something went wrong creating Stripe Charges.",
+    //               };
+    //         }else{
+    //             return stripeRes
+    //         }
+    //     });
+    // })
 });
