@@ -36,7 +36,7 @@ const Cart = () => {
   };
   return (
     <div className="flex flex-col lg:flex-row gap-4">
-      <div className="prods flex flex-col gap-4 w-full lg:w-[60%] lg:border-r lg:border-r-black lg:pr-2">
+      <div className="prods flex flex-col gap-4 w-full lg:w-[70%] lg:border-r lg:border-r-black lg:pr-2">
         {products ? (
           <div className="products">
             {products.map((prod) => (
@@ -50,7 +50,7 @@ const Cart = () => {
                 </div>
                 <div className="content w-full">
                   <div className="flex flex-col  lg:flex-row lg:justify-between">
-                    <h3 className="text-[14px] font-bold text-black md:text-[16px] xl:text-[18px] mb-3">
+                    <h3 className="text-[14px] font-bold text-black md:text-[16px] xl:text-[18px] 2xl:text-[22px] mb-3">
                       {prod.name}
                     </h3>
                     <h3 className="text-[14px] font-bold text-primary md:text-[16px] xl:text-[18px]">
@@ -103,7 +103,7 @@ const Cart = () => {
           "No Product Found. Please Add Product to Cart"
         )}
       </div>
-      <div className="w-full lg:w-[40%] lg:mt-8">
+      <div className="w-full lg:w-[30%] lg:mt-6">
         <div className="subtotals border-b-2 border-b-black">
           <div className="mb-4 flex items-center justify-between gap-4">
             <h3 className="text-[16px] lg:text-[18px]">Subtotal</h3>

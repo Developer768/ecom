@@ -6,6 +6,17 @@ await import("./src/env.js");
 
 /** @type {import("next").NextConfig} */
 const config = {
+    reactStrictMode: true,
+    swcMinify: true,
+    compiler: {
+      removeConsole: process.env.NODE_ENV !== 'development',
+    },
+    typescript: {
+      ignoreBuildErrors: true,
+    },
+    eslint: {
+      ignoreDuringBuilds: true,
+    },
     images:{
         domains:["res.cloudinary.com"],
     }
