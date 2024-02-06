@@ -50,6 +50,16 @@ const ClientMobileHeader = () => {
                     asChild
                     className="font-dmSans text-[20px] font-normal hover:text-primary"
                   >
+                    <Link href="/blog">Blog</Link>
+                  </NavigationMenuLink>
+                </SheetClose>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <SheetClose asChild>
+                  <NavigationMenuLink
+                    asChild
+                    className="font-dmSans text-[20px] font-normal hover:text-primary"
+                  >
                     <Link href="/shop">Shop</Link>
                   </NavigationMenuLink>
                 </SheetClose>

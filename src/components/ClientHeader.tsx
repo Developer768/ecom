@@ -5,6 +5,7 @@ import LinkButton from "./customUI/LinkButton";
 import { db } from "@/server/db";
 import ClientMenu from "./ClientMenu";
 import ClientMobileHeader from "./ClientMobileHeader";
+import HearderCartIcon from "./HearderCartIcon";
 
 const ClientHeader = async () => {
   return (
@@ -31,9 +32,7 @@ const ClientHeader = async () => {
           </LinkButton>
         </div>
         {/* Cart Icon */}
-        <div className="cart-icon cursor-pointer">
-          <Icons.ShoppingBag className="h-[28px] w-[28px]" />
-        </div>
+        <HearderCartIcon />
         {/* Mobile Menu Icon */}
         <div className="mobile-menu cursor-pointer lg:hidden">
           {/* <Icons.Menu className="h-[32px] w-[32px]" /> */}

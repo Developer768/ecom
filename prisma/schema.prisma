@@ -103,3 +103,18 @@ model Counties {
   state   States @relation(fields: [StateId], references: [id])
   StateId String @db.ObjectId
 }
+
+
+model orders {
+    id       String @id @default(auto()) @map("_id") @db.ObjectId
+    firstName String
+    lastName String
+    State String
+    County String
+    shippingAddress String
+    phoneNumber String
+    products Json[]
+    totalPrice String
+    shippingFee String
+    Status String
+}
