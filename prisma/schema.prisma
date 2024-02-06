@@ -114,7 +114,11 @@ model orders {
     shippingAddress String
     phoneNumber String
     products Json[]
+    // subTotal String
     totalPrice String
-    shippingFee String
-    Status String
+    // shippingFee String
+    deliveryStatus String @default("pending")
+    // paymentStatus String 
+    createdAt       DateTime     @default(now())
+    updatedAt       DateTime     @updatedAt
 }

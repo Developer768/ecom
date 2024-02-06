@@ -10,6 +10,7 @@ import { productsRouter } from "./routers/products";
 import { sendMailRouter } from "./routers/sendMail";
 import { shippingStatesRouter } from "./routers/shippingStatesRouter";
 import { shippingCountiesRouter } from "./routers/shippingCountiesRouter";
+import { checkoutRouter } from "./routers/checkout";
 
 /**
  * This is the primary router for your server.
@@ -28,6 +29,7 @@ export const appRouter = createTRPCRouter({
   mail: sendMailRouter,
   states: shippingStatesRouter,
   counties: shippingCountiesRouter,
+  checkout: checkoutRouter,
 });
 
 // export type definition of API

@@ -22,7 +22,7 @@ const CheckoutPage = async() => {
           <h3 className="salome-large py-4 text-green lg:py-6 3xl:py-8">
             Checkout
           </h3>
-          <Checkout />
+          <Checkout counties={shippingCounties}  states={shippingStates}/>
           
         </div>
       </div>
