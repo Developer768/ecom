@@ -175,7 +175,7 @@ export const productsRouter = createTRPCRouter({
         };
       }
     }),
-  getProducts: protectedProcedure
+  getProducts: publicProcedure
     .input(
       z.object({
         slug: z.string(),
